@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+Anexos/[^.]*
+Anexos1/
+Relatorios/[^.]*
+Relatorios1/
+.vscode/
