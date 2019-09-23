@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Modelo de Mensagem</title>
+    <style type="text/css">
+        #rodape {
+            color: #51a7f9; /* Cor do texto azul claro */
+            font-weight: bold; /* Negrito */
+            font-size: 8px; /* Tamanho da fonte 8 */
+            line-height: 1.5; /* Espaçamento entre linhas */
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        #textMsg {
+            color: #51a7f9; /* Cor do texto azul claro */
+            font-weight: bold; /* Negrito */
+            font-size: 12px; /* Tamanho da fonte 8 */
+            line-height: 1.5; /* Espaçamento entre linhas */
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+</head>
+<body>
+    <textarea name="mensage" id="textArea" cols="36" rows="10"></textarea> <br>
+    <button onclick="adicionar()">Adicionar Mensagem</button> <br> <br> <br> <br>
+    <p id="textMsg" ></p>
+    <img src="https://docs.google.com/uc?id=1-e0dFB5xH_5R42Spv06MbzpXGXoUFL_M" alt="">
+    <p id="rodape">
+        ASSUNIVASF  - Associação dos Servidores da Fundação - UNIVASF<br>
+        Av. Souza Filho, 553/201 - Galeria Imperial Center - Centro<br>
+        CEP 56304-000  PETROLINA-PE<br>
+        Telefones (87) 3861-4244<br>
+        Site: www.assunivasf.com.br - Visite a página da ASSUNIVASF no Facebook e Instagram.
+    </p>
+
+    <script>
+        function adicionar() {
+            var mensage = document.getElementById('textArea').value;
+            var textMsg = document.getElementById('textMsg');
+            textMsg.innerText = mensage;
+        }  
+    </script>
+</body>
+</html>

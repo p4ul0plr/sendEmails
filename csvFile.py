@@ -3,13 +3,6 @@ import csv
 from associate import *
 from unicodedata import normalize
 
-def removeAaccent(txt):
-    return normalize('NFKD', txt).encode('ASCII', 'ignore').decode('ASCII')
- 
-if __name__ == '__main__':
-    from doctest import testmod
-    testmod()
-
 class CsvFile:
     def __init__(self, path):
         self.associates = []
@@ -37,7 +30,7 @@ class CsvFile:
                         except:
                             self.associates.append(Associate(row["NOME"], row["MÉTODO"], row["EMAIL"]))  
         except:
-            print("Erro ao ler do arquivo: \'" + self.path + "\'")
+            print('\033[1;40;31m' + '\nErro ao abrir o arquivo!: ' + '\033[0;0m' + self.path + '\n')
 
     def readCsvFileNoEmail(self):
         try:
