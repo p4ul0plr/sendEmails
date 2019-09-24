@@ -14,7 +14,7 @@ import os
 from platform import system
 
 class EmailWithAttachment:
-    def __init__(self, sourceEmail, password, emailSubject, messageText, csvFilePath, attachmentsPath, messagePath):
+    def __init__(self, sourceEmail='', password='', emailSubject='', messageText='', csvFilePath='', attachmentsPath='', messagePath=''):
         self.smtp = ''
         self.sourceEmail = sourceEmail
         self.password = password
@@ -73,9 +73,9 @@ class EmailWithAttachment:
         mime.add_header('Content-Disposition', 'attachment', filename=filename.replace(self.attachmentsPath, ''))
         msg.attach(mime)
 
-    def sendEmail(self, email, attachment):    
+    def sendEmail(self, associate, attachment):    
         #para = ['pauloroberto_nobrega@hotmail.com']
-        destinationEmail = [email]
+        destinationEmail = [associate.email]
             
         #Estrutura da messagem
         msg = MIMEMultipart()
@@ -101,9 +101,13 @@ class EmailWithAttachment:
             try:
                 smtp.sendmail(self.sourceEmail, destinationEmail, raw)
                 smtp.close()  # Só usa para o envio pelo Hotmail
-                print('\033[1;40;32m' + 'Enviado com SUCESSO' + '\033[0;0m: ' + 'Email: ' + email + ', Boleto: ' +  attachment)
+                print('-=' * 50)
+                print('\033[1;40;32m' + 'Enviado com SUCESSO' + '\033[0;0m:')
+                print('Nome:', associate.name, '\nE-Mail:', associate.email, '\nArquivo:', '\033[1;0;32m' + str(associate.bankSlip) + '\033[0;0m')
             except:
-                print('\033[1;40;31m' + 'ERRO ao enviar email: \033[0;0m' + 'Email: ' + email + ', Boleto: ' +  attachment)
+                print('-=' * 50)
+                print('\033[1;40;31m' + 'ERRO ao enviar email' + '\033[0;0m')
+                print('Nome:', associate.name, '\nE-Mail:', associate.email, '\nArquivo:', '\033[1;0;32m' + str(associate.bankSlip) + '\033[0;0m')
 
         elif '@gmail.com' in self.sourceEmail:
             smtp = smtplib.SMTP_SSL('smtp.gmail.com', 465)  # para envio pelo Gmail
@@ -112,9 +116,13 @@ class EmailWithAttachment:
             try:
                 smtp.sendmail(self.sourceEmail, destinationEmail, raw)
                 smtp.quit()
-                print('\033[1;40;32m' + 'Enviado com SUCESSO' + '\033[0;0m: ' + 'Email: ' + email + ', Boleto: ' +  attachment)
+                print('-=' * 50)
+                print('\033[1;40;32m' + 'Enviado com SUCESSO' + '\033[0;0m:')
+                print('Nome:', associate.name, '\nE-Mail:', associate.email, '\nArquivo:', '\033[1;0;32m' + str(associate.bankSlip) + '\033[0;0m')
             except:
-                print('\033[1;40;31m' + 'ERRO ao enviar email: \033[0;0m' + 'Email: ' + email + ', Boleto: ' +  attachment)
+                print('-=' * 50)
+                print('\033[1;40;31m' + 'ERRO ao enviar email' + '\033[0;0m')
+                print('Nome:', associate.name, '\nE-Mail:', associate.email, '\nArquivo:', '\033[1;0;32m' + str(associate.bankSlip) + '\033[0;0m')
 
 
     def associatedWithSlips(self):
@@ -125,6 +133,12 @@ class EmailWithAttachment:
                             associate.bankSlip = attachment
         
     def verify(self):
+        self.attachmentsInPdf = self.openAttachmentsPath()
+        self.csvFile = CsvFile(self.csvFilePath)
+        self.csvFile.readCsvFile()
+        self.associatedWithSlips()
+
+
         print('\n\nAssociados com boleto em PDF \033[1;40;32m' + 'CORRETOS!' + '\033[0;0m\n\n')
         i = 0
 
@@ -153,7 +167,7 @@ class EmailWithAttachment:
 
 def clearScreen():
     if system() == 'Linux':
-            os.system('clear')
+        os.system('clear')
     else:
         os.system('cls')
 
