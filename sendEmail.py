@@ -18,7 +18,7 @@ def menuConfigs():
 
 def setPaths():
     clearScreen()
-    option = input('\n\nEscolha uma das opções abaixo: \n1 - Configurar\n2 - Exibir diretórios\n3 - Voltar\n4 - Sair\nOpção: ')
+    option = input('\n\nEscolha uma das opções abaixo: \n1 - Configurar\n2 - Exibir diretó1rios\n3 - Voltar\n4 - Sair\nOpção: ')
     while option not in ['1', '2', '3', '4']:
         option = input('\033[1;40;31m' + 'Opção INVÁLIDA!' + '\033[0;0m' + ' - Digite uma opção válida!\nOpção: ')
 
@@ -111,7 +111,7 @@ def menu():
 
             print('-=' * 50)
             print('\n\n' + '\033[1;40;32m' + 'Envio de E-mails concluido' + '\033[0;0m')
-            ption = input('\n\nEscolha uma das opções abaixo: \n1 - Voltar\n2 - Sair\nOpção: ')
+            option = input('\n\nEscolha uma das opções abaixo: \n1 - Voltar\n2 - Sair\nOpção: ')
             while option not in ['1', '2', '3']:
                 option = input('\033[1;40;31m' + 'Opção INVÁLIDA!' + '\033[0;0m' + ' - Digite uma opção válida!\nOpção: ')
             
