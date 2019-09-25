@@ -111,6 +111,7 @@ class EmailWithAttachment:
         elif '@gmail.com' in self.sourceEmail:
             smtp = smtplib.SMTP_SSL('smtp.gmail.com', 465)  # para envio pelo Gmail
             smtp.login(self.sourceEmail, self.password)
+            smtp.ehlo()
 
             try:
                 smtp.sendmail(self.sourceEmail, destinationEmail, raw)
@@ -177,11 +178,14 @@ def verifyEmailPassword(sourceEmail, password):
         smtp.starttls()  # Só usa para o envio pelo Hotmail
     elif '@gmail.com' in sourceEmail:
         smtp = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-
+        smtp.ehlo()
 
     try:
         smtp.login(sourceEmail, password)
-        smtp.quit()
+        if '@hotmail.com' in sourceEmail or '@live.com' in sourceEmail or '@outlook.com' in sourceEmail:
+            smtp.close()
+        elif '@gmail.com' in sourceEmail:
+            smtp.quit()
         clearScreen()
         print('\033[1;40;32m' + '\nE-Mail e Senha CORRETOS!\n' + '\033[0;0m \n')
         return True
