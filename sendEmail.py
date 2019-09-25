@@ -2,6 +2,7 @@ from getpass import getpass
 from emailWithAttachment import *
 from jsonFile import JsonFile
 from time import sleep
+from sys import exit
 
 def menuConfigs():
     clearScreen()
@@ -14,7 +15,7 @@ def menuConfigs():
     elif option =='2':
         menu()
     elif option == '3':
-        exit()
+        exit
 
 def setPaths():
     clearScreen()
@@ -53,13 +54,13 @@ def setPaths():
         if option == '1':
             setPaths()
         elif option == '2':
-            exit()
+            exit
 
     elif option =='3':
         menuConfigs()
         
     elif option =='4':
-        exit()
+        exit
     
 def menu():
     clearScreen()
@@ -118,13 +119,13 @@ def menu():
             if option =='1':
                 menu()
             elif option =='2':
-                exit()
+                exit
 
         elif option == '2':
             menu()
 
         elif option == '3':
-            exit()
+            exit
         
     elif option == '2':
         clearScreen()
@@ -161,7 +162,7 @@ def menu():
 
     elif option == '4':
         clearScreen()
-        exit()
+        exit
 
 jsonFile = JsonFile()
 menuConfigs()

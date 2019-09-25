@@ -10,7 +10,6 @@ from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from csvFile import *
-import os
 from platform import system
 
 class EmailWithAttachment:
