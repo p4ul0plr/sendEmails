@@ -11,7 +11,7 @@ class CsvFile:
     def createCsvFile(self, columnNames):
         try:
             #O 'w' cria o arquivo e apaga os dados existentes. O 'a+' adiciona uma nova linha e não apaga o arquivo
-            with open(self.path, 'w',  newline='') as csvfile:
+            with open(self.path, 'w',  newline='', encoding='utf8') as csvfile:
                 self.spamwriter = csv.writer(csvfile)
                 self.spamwriter.writerow(columnNames)
         except:

@@ -11,7 +11,7 @@ class JsonFile:
 
     def read(self, filePath='./Configuracoes/config.json'):
         try:
-            self.jsonFile = json.load(open(self.filePath))
+            self.jsonFile = json.load(open(self.filePath, encoding='utf8'))
             self.config.update(self.jsonFile)
         except:
            print('\033[1;40;31m' + '\nErro ao abrir arquivo de configurações!: ' +'\033[0;0m' + str(self.filePath) + '\n')    

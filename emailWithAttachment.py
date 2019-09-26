@@ -40,7 +40,7 @@ class EmailWithAttachment:
     def createHtmlMessage(self):
         #htmlFile = open('./Modelo de Mensagem/messageTemplate.html', 'r')
         try:
-            htmlFile = open(self.messagePath, 'r')
+            htmlFile = open(self.messagePath, 'r', encoding='utf8')
             msgTexto = htmlFile.read().replace('\n', '').replace('#!MESSAGE!#', self.messageText)
             htmlFile.close()
             return msgTexto
