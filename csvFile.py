@@ -19,7 +19,7 @@ class CsvFile:
 
     def readCsvFile(self):
         try:
-            with open(self.path, newline='') as csvfile:
+            with open(self.path, newline='', encoding='utf8') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
                     try:
@@ -34,7 +34,7 @@ class CsvFile:
 
     def readCsvFileNoEmail(self):
         try:
-            with open(self.path, newline='') as csvfile:
+            with open(self.path, newline='', encoding='utf8') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
                     try:
@@ -53,7 +53,7 @@ class CsvFile:
                 return "Associado não está presente no arquivo: \'" + self.path + "\'"
 
     def writeRowCsvFile(self, row):
-        with open(self.path, 'a+',  newline='') as csvfile:
+        with open(self.path, 'a+',  newline='', encoding='utf8') as csvfile:
             self.spamwriter = csv.writer(csvfile)
             self.spamwriter.writerow(row)
 
