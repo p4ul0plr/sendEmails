@@ -85,7 +85,7 @@ class EmailWithAttachment:
         # Corpo da messagem
 
         #msgTexto = '<img src="https://docs.google.com/uc?id=1-e0dFB5xH_5R42Spv06MbzpXGXoUFL_M"alt=""><p id="rodape" style="color: #51a7f9; font-weight: bold; font-size: 8px; line-height: 1.5;">ASSUNIVASF  - Associação dos Servidores da Fundação - UNIVASF<br>Av. Souza Filho, 553/201 - Galeria Imperial Center - Centro<br>CEP 56304-000  PETROLINA-PE<br>Telefones (87) 3861-4244<br>Site: www.assunivasf.com.br - Visite a página da ASSUNIVASF no Facebook e Instagram.</p>'
-        msg.attach(MIMEText(self.messageText, 'html', 'utf-8'))
+        msg.attach(MIMEText(self.messageText, 'html', 'iso-8859-1'))
             
         # Arquivos anexos.
         self.addAttachment(msg, attachment)

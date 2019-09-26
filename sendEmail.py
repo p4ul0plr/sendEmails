@@ -1,3 +1,7 @@
+# encoding: utf-8
+# encoding: iso-8859-1
+# encoding: win-1252
+
 from getpass import getpass
 from emailWithAttachment import *
 from jsonFile import JsonFile
