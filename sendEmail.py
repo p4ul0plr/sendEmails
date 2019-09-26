@@ -41,7 +41,7 @@ def setPaths():
 
     elif option == '2':
         clearScreen()
-
+        jsonFile.read()
         print('\n\nDiretórios: \n')
         print('Arquivo de relatórios (.csv): ' + '\'' + jsonFile.config['csvFilePath'] + '\'')
         print('Boletos em PDF: ' + '\'' + jsonFile.config['attachmentsPath'] + '\'')
@@ -84,7 +84,7 @@ def menu():
         emailSubject = input('Assunto do E-Mail: ')
         messageText = input('Texto da messagem: ')
 
-
+        jsonFile.read()
         emailWithAttachment = EmailWithAttachment(
             sourceEmail, 
             password, 
@@ -130,6 +130,7 @@ def menu():
     elif option == '2':
         clearScreen()
 
+        jsonFile.read()
         if flag:
             verifyEmail = EmailWithAttachment(
                 '',
@@ -140,13 +141,12 @@ def menu():
                 jsonFile.config['attachmentsPath'],
                 jsonFile.config['messagePath']
             )
+            verifyEmail.verify()
         else:
             print('\033[1;40;32m' + '\nE-Mail e Senha CORRETOS!\n' + '\033[0;0m \n')
             print('Assunto do E-Mail:', emailSubject)
             print('Texto da messagem:', messageText)
             emailWithAttachment.verify()
-        
-        verifyEmail.verify()
 
         option = input('\n\nEscolha uma das opções abaixo: \n1 - Voltar\n2 - Sair\nOpção: ')
         while option not in ['1', '2']:
@@ -165,4 +165,5 @@ def menu():
         exit
 
 jsonFile = JsonFile()
+jsonFile.read()
 menuConfigs()
