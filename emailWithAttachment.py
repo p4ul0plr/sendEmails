@@ -139,7 +139,7 @@ class EmailWithAttachment:
         self.associatedWithSlips()
 
 
-        print('\n\nAssociados com boleto em PDF \033[1;40;32m' + 'CORRETOS!' + '\033[0;0m\n\n')
+        print('\n\nPessoas com anexos \033[1;40;32m' + 'CORRETOS!' + '\033[0;0m\n\n')
         i = 0
 
         for associate in self.csvFile.associates:
@@ -152,7 +152,7 @@ class EmailWithAttachment:
         print('-=' * 50) 
         print('Total: ' + str(i))
 
-        print('\n\nAssociados com boleto em PDF \033[1;40;31m' + 'INCORRETOS!' + '\033[0;0m\n\n')
+        print('\n\nPessoas com anexos \033[1;40;31m' + 'INCORRETOS!' + '\033[0;0m\n\n')
         i = 0  
 
         for associate in self.csvFile.associates:

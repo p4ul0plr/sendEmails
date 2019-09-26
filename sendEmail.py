@@ -29,8 +29,8 @@ def setPaths():
 
     if option =='1':
         print('\n\nConfiguração dos diretórios:\n')
-        csvFilePath = input('Digite o caminho do arquivo de relatórios (.csv): ')
-        attachmentsPath = input('Digite o camino da pasta com os boletos em PDF: ')
+        csvFilePath = input('Digite o caminho da lista com: nome, email e método (.csv): ')
+        attachmentsPath = input('Digite o camino da pasta com os anexos: ')
         messagePath = input('Digite o caminho do arquivo do modelo de menssagem (.html): ')
         config = {
             "csvFilePath": csvFilePath,
@@ -47,8 +47,8 @@ def setPaths():
         clearScreen()
         jsonFile.read()
         print('\n\nDiretórios: \n')
-        print('Arquivo de relatórios (.csv): ' + '\'' + jsonFile.config['csvFilePath'] + '\'')
-        print('Boletos em PDF: ' + '\'' + jsonFile.config['attachmentsPath'] + '\'')
+        print('Lista com: nome, email e método (.csv): ' + '\'' + jsonFile.config['csvFilePath'] + '\'')
+        print('Anexos: ' + '\'' + jsonFile.config['attachmentsPath'] + '\'')
         print('Modelo de menssagem (.html): ' + '\'' + jsonFile.config['messagePath'] + '\'')
 
         option = input('\n\nEscolha uma das opções abaixo: \n1 - Voltar\n2 - Sair\nOpção: ')
