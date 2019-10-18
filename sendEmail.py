@@ -28,37 +28,45 @@ def setPaths():
         option = input('\033[1;40;31m' + 'Opção INVÁLIDA!' + '\033[0;0m' + ' - Digite uma opção válida!\nOpção: ')
 
     if option =='1':
-        print('\n\nConfiguração dos diretórios:\n')
-        csvFilePath = input('Digite o caminho da lista com: nome, email e método (.csv): ')
-        attachmentsPath = input('Digite o camino da pasta com os anexos: ')
-        messagePath = input('Digite o caminho do arquivo do modelo de menssagem (.html): ')
-        config = {
-            "csvFilePath": csvFilePath,
-            "attachmentsPath": attachmentsPath,
-            "messagePath": messagePath
-        }
-        jsonFile.write(config)
-        print('\033[1;40;32m' + '\nDiretórios Configurados' + '\033[0;0m \n')
-        sleep(3)
-        clearScreen()
-        setPaths()
+        if not jsonFile.read():
+            sleep(3)
+            setPaths()
+            exit
+        else:
+            print('\n\nConfiguração dos diretórios:\n')
+            csvFilePath = input('Digite o caminho da lista com: nome, email e método (.csv): ')
+            attachmentsPath = input('Digite o camino da pasta com os anexos: ')
+            messagePath = input('Digite o caminho do arquivo do modelo de menssagem (.html): ')
+            config = {
+                "csvFilePath": csvFilePath,
+                "attachmentsPath": attachmentsPath,
+                "messagePath": messagePath
+            }
+            jsonFile.write(config)
+            print('\033[1;40;32m' + '\nDiretórios Configurados' + '\033[0;0m \n')
+            sleep(3)
+            clearScreen()
+            setPaths()
 
     elif option == '2':
-        clearScreen()
-        jsonFile.read()
-        print('\n\nDiretórios: \n')
-        print('Lista com: nome, email e método (.csv): ' + '\'' + jsonFile.config['csvFilePath'] + '\'')
-        print('Anexos: ' + '\'' + jsonFile.config['attachmentsPath'] + '\'')
-        print('Modelo de menssagem (.html): ' + '\'' + jsonFile.config['messagePath'] + '\'')
-
-        option = input('\n\nEscolha uma das opções abaixo: \n1 - Voltar\n2 - Sair\nOpção: ')
-        while option not in ['1', '2']:
-            option = input('\033[1;40;31m' + 'Opção INVÁLIDA!' + '\033[0;0m' + ' - Digite uma opção válida!\nOpção: ')
-
-        if option == '1':
+        if not jsonFile.read():
+            sleep(3)
             setPaths()
-        elif option == '2':
             exit
+        else:
+            clearScreen()
+            print('\n\nDiretórios: \nLista com: nome, email e método (.csv): ' + '\'' + jsonFile.config['csvFilePath'] + '\'')
+            print('Anexos: ' + '\'' + jsonFile.config['attachmentsPath'] + '\'')
+            print('Modelo de menssagem (.html): ' + '\'' + jsonFile.config['messagePath'] + '\'')
+
+            option = input('\n\nEscolha uma das opções abaixo: \n1 - Voltar\n2 - Sair\nOpção: ')
+            while option not in ['1', '2']:
+                option = input('\033[1;40;31m' + 'Opção INVÁLIDA!' + '\033[0;0m' + ' - Digite uma opção válida!\nOpção: ')
+
+            if option == '1':
+                setPaths()
+            elif option == '2':
+                exit
 
     elif option =='3':
         menuConfigs()
@@ -75,91 +83,99 @@ def menu():
         option = input('\033[1;40;31m' + 'Opção INVÁLIDA!' + '\033[0;0m' + ' - Digite uma opção válida!\nOpção: ')
 
     if option == '1':
-        clearScreen()
-        print('\n\n')
-        flag = False
-
-        while True:
-            sourceEmail = input('Digite o E-Mail de origem: ')
-            password = getpass('Digite sua senha: ')
-            if verifyEmailPassword(sourceEmail, password):
-                break
-
-        emailSubject = input('Assunto do E-Mail: ')
-        messageText = input('Texto da messagem: ')
-
-        jsonFile.read()
-        emailWithAttachment = EmailWithAttachment(
-            sourceEmail, 
-            password, 
-            emailSubject, 
-            messageText, 
-            jsonFile.config['csvFilePath'], 
-            jsonFile.config['attachmentsPath'], 
-            jsonFile.config['messagePath']
-        )
-
-        emailWithAttachment.verify()
-
-        option = input('\n\nEscolha uma das opções abaixo: \n1 - Confirmar e enviar para os emails marcados como corretos\n2 - Voltar\n3 - Sair\nOpção: ')
-        while option not in ['1', '2', '3']:
-            option = input('\033[1;40;31m' + 'Opção INVÁLIDA!' + '\033[0;0m' + ' - Digite uma opção válida!\nOpção: ')
-
-        if option == '1':
-            print('\n\n')
-            for associate in emailWithAttachment.csvFile.associates:
-                if associate.method == 'Boleto' and associate.bankSlip != None:
-                    emailWithAttachment.sendEmail(
-                        associate, 
-                        emailWithAttachment.attachmentsPath + str(associate.bankSlip)
-                    )
-
-            print('-=' * 50)
-            print('\n\n' + '\033[1;40;32m' + 'Envio de E-mails concluido' + '\033[0;0m')
-            option = input('\n\nEscolha uma das opções abaixo: \n1 - Voltar\n2 - Sair\nOpção: ')
-            while option not in ['1', '2', '3']:
-                option = input('\033[1;40;31m' + 'Opção INVÁLIDA!' + '\033[0;0m' + ' - Digite uma opção válida!\nOpção: ')
-            
-            if option =='1':
-                menu()
-            elif option =='2':
-                exit
-
-        elif option == '2':
+        if not jsonFile.read():
+            sleep(3)
             menu()
-
-        elif option == '3':
             exit
-        
-    elif option == '2':
-        clearScreen()
+        else:
+            clearScreen()
+            print('\n\n')
+            flag = False
 
-        jsonFile.read()
-        if flag:
-            verifyEmail = EmailWithAttachment(
-                '',
-                '',
-                '',
-                '',
+            while True:
+                sourceEmail = input('Digite o E-Mail de origem: ')
+                password = getpass('Digite sua senha: ')
+                if verifyEmailPassword(sourceEmail, password):
+                    break
+
+            emailSubject = input('Assunto do E-Mail: ')
+            messageText = input('Texto da messagem: ')
+
+            jsonFile.read()
+            emailWithAttachment = EmailWithAttachment(
+                sourceEmail, 
+                password, 
+                emailSubject, 
+                messageText, 
                 jsonFile.config['csvFilePath'], 
-                jsonFile.config['attachmentsPath'],
+                jsonFile.config['attachmentsPath'], 
                 jsonFile.config['messagePath']
             )
-            verifyEmail.verify()
-        else:
-            print('\033[1;40;32m' + '\nE-Mail e Senha CORRETOS!\n' + '\033[0;0m \n')
-            print('Assunto do E-Mail:', emailSubject)
-            print('Texto da messagem:', messageText)
+
             emailWithAttachment.verify()
 
-        option = input('\n\nEscolha uma das opções abaixo: \n1 - Voltar\n2 - Sair\nOpção: ')
-        while option not in ['1', '2']:
-            option = input('\033[1;40;31m' + 'Opção INVÁLIDA!' + '\033[0;0m' + ' - Digite uma opção válida!\nOpção: ')
+            option = input('\n\nEscolha uma das opções abaixo: \n1 - Confirmar e enviar para os emails marcados como corretos\n2 - Voltar\n3 - Sair\nOpção: ')
+            while option not in ['1', '2', '3']:
+                option = input('\033[1;40;31m' + 'Opção INVÁLIDA!' + '\033[0;0m' + ' - Digite uma opção válida!\nOpção: ')
 
-        if option == '1':
+            if option == '1':
+                print('\n\n')
+                for associate in emailWithAttachment.csvFile.associates:
+                    if associate.method == 'Boleto' and associate.bankSlip != None:
+                        emailWithAttachment.sendEmail(
+                            associate, 
+                            emailWithAttachment.attachmentsPath + str(associate.bankSlip)
+                        )
+
+                print('-=' * 50)
+                print('\n\n' + '\033[1;40;32m' + 'Envio de E-mails concluido' + '\033[0;0m')
+                option = input('\n\nEscolha uma das opções abaixo: \n1 - Voltar\n2 - Sair\nOpção: ')
+                while option not in ['1', '2', '3']:
+                    option = input('\033[1;40;31m' + 'Opção INVÁLIDA!' + '\033[0;0m' + ' - Digite uma opção válida!\nOpção: ')
+                
+                if option =='1':
+                    menu()
+                elif option =='2':
+                    exit
+
+            elif option == '2':
+                menu()
+
+            elif option == '3':
+                exit
+        
+    elif option == '2':
+        if not jsonFile.read():
+            sleep(3)
             menu()
-        elif option == '2':
             exit
+        else:
+            clearScreen()
+            if flag:
+                verifyEmail = EmailWithAttachment(
+                    '',
+                    '',
+                    '',
+                    '',
+                    jsonFile.config['csvFilePath'], 
+                    jsonFile.config['attachmentsPath'],
+                    jsonFile.config['messagePath']
+                )
+                verifyEmail.verify()
+            else:
+                print('\033[1;40;32m' + '\nE-Mail e Senha CORRETOS!\n' + '\033[0;0m \n')
+                print('Assunto do E-Mail:', emailSubject)
+                print('Texto da messagem:', messageText)
+                emailWithAttachment.verify()
+
+            option = input('\n\nEscolha uma das opções abaixo: \n1 - Voltar\n2 - Sair\nOpção: ')
+            while option not in ['1', '2']:
+                option = input('\033[1;40;31m' + 'Opção INVÁLIDA!' + '\033[0;0m' + ' - Digite uma opção válida!\nOpção: ')
+
+            if option == '1':
+                menu()
+            elif option == '2':
+                exit
         
     elif option == '3':
         menuConfigs()

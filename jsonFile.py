@@ -13,9 +13,10 @@ class JsonFile:
         try:
             self.jsonFile = json.load(open(self.filePath, encoding='utf8'))
             self.config.update(self.jsonFile)
+            return True
         except:
-           print('\033[1;40;31m' + '\nErro ao abrir arquivo de configurações!: ' +'\033[0;0m' + str(self.filePath) + '\n')    
-
+           print('\033[1;40;31m' + '\nErro ao abrir arquivo de configurações!: ' +'\033[0;0m' + str(self.filePath) + '\n')
+           return False      
 
     def write(self, config):
         with open(self.filePath, 'w') as jsonFile:
