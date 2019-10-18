@@ -1,7 +1,7 @@
 import json
 
 class JsonFile:
-    def __init__(self, filePath='./Configuracoes/config.json'):
+    def __init__(self, filePath='./sendEmail_Files/Configuracoes/config.json'):
        self.config = {}
        self.jsonFile = ''
        self.filePath = filePath
@@ -9,7 +9,7 @@ class JsonFile:
     def __str__(self):
         return str(self.config)
 
-    def read(self, filePath='./Configuracoes/config.json'):
+    def read(self, filePath='./sendEmail_Files/Configuracoes/config.json'):
         try:
             self.jsonFile = json.load(open(self.filePath, encoding='utf8'))
             self.config.update(self.jsonFile)
