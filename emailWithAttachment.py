@@ -11,6 +11,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from csvFile import *
 from platform import system
+from sys import exit
 
 class EmailWithAttachment:
     def __init__(self, sourceEmail='', password='', emailSubject='', messageText='', csvFilePath='', attachmentsPath='', messagePath=''):
@@ -172,13 +173,18 @@ def clearScreen():
         os.system('cls')
 
 def verifyEmailPassword(sourceEmail, password):
-    if '@hotmail.com' in sourceEmail or '@live.com' in sourceEmail or '@outlook.com' in sourceEmail:
-        smtp = smtplib.SMTP('smtp-mail.outlook.com', '587')
-        smtp.ehlo()  # Só usa para o envio pelo Hotmail
-        smtp.starttls()  # Só usa para o envio pelo Hotmail
-    elif '@gmail.com' in sourceEmail:
-        smtp = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        smtp.ehlo()
+    try:
+        if '@hotmail.com' in sourceEmail or '@live.com' in sourceEmail or '@outlook.com' in sourceEmail:
+            smtp = smtplib.SMTP('smtp-mail.outlook.com', '587')
+            smtp.ehlo()  # Só usa para o envio pelo Hotmail
+            smtp.starttls()  # Só usa para o envio pelo Hotmail
+        elif '@gmail.com' in sourceEmail:
+            smtp = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+            smtp.ehlo()
+    except:
+        clearScreen()
+        print('\033[1;40;31m' + '\nErro ao tentar se conectar com a internet! ' + '\033[0;0m \n')
+        return False 
 
     try:
         smtp.login(sourceEmail, password)
